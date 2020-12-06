@@ -64,6 +64,8 @@ print("Calibrated")
 /// Readings ////
 var time = NSDate()
 var refreshRate: Double = 100
+/// Headers for printing
+print("Pitch\tRoll\tYaw\tTemp")
 while(true){
 	let (ax, ay, az, t, gx, gy, gz) = mp.getAll()
 	gyroX = gx - gxCal
@@ -121,8 +123,10 @@ while(true){
     let yawString = String(format: "%.2f", yawOut)
     let tempString = String(format: "%.2f", t)
     
+    /*
 	print("Pitch:   \(pitchString)")
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
-    print("Temp:    \(tempString)")
+    print("Temp:    \(tempString)")*/
+    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)")
 }
