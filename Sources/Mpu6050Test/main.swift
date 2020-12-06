@@ -47,7 +47,7 @@ var setGyroAngles: Bool = false
 print("Calibrating")
 for n in 0...2000 {
 	if n % 125 == 0 {
-        print(".", terminator: "")
+        print(".", terminator: " ")
 	}
 	let (_,_,_,_,gx,gy,gz) = mp.getAll()
 	gxCal += gx
@@ -58,6 +58,7 @@ for n in 0...2000 {
 gxCal = gxCal / 2000
 gyCal = gyCal / 2000
 gzCal = gzCal / 2000
+print("\n")
 print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
 
@@ -128,5 +129,5 @@ while(true){
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
-    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)\r")
+    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
 }
