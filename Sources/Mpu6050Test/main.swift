@@ -49,7 +49,7 @@ for n in 0...2000 {
 	if n % 125 == 0 {
 		print(".")
 	}
-	let (ax,ay,az,t,gx,gy,gz) = mp.getAll()
+	let (_,_,_,_,gx,gy,gz) = mp.getAll()
 	gxCal += gx
 	gyCal += gy
 	gzCal += gz
@@ -115,7 +115,13 @@ while(true){
 	pitchOut = pitchOut * 0.9 + pitchAngle * 0.1
 	rollOut = rollOut * 0.9 + rollAngle * 0.1
 	yawOut = yawAngle
-	print("Pitch: \(pitchOut)")
-	print("Roll: \(rollOut)")
-	print("Yaw: \(yawOut)")
+    
+    let pitchString = String(format: "%.2f", pitchOut)
+    let rollString = String(format: "%.2f", rollOut)
+    let yawString = String(format: "%.2f", yawOut)
+    
+	print("Pitch: \(pitchString)")
+	print("Roll: \(rollString)")
+	print("Yaw: \(yawString)")
+    print("Temperature: \(t)")
 }
