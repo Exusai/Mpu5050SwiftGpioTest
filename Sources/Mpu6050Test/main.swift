@@ -119,9 +119,10 @@ while(true){
     let pitchString = String(format: "%.2f", pitchOut)
     let rollString = String(format: "%.2f", rollOut)
     let yawString = String(format: "%.2f", yawOut)
+    let tempString = String(format: "%.2f", t)
     
-	print("Pitch: \(pitchString)")
-	print("Roll: \(rollString)")
-	print("Yaw: \(yawString)")
-    print("Temperature: \(t)")
+	print("Pitch:   \(pitchString)")
+	print("Roll:    \(rollString)")
+	print("Yaw:     \(yawString)")
+    print("Temp:    \(tempString)")
 }
