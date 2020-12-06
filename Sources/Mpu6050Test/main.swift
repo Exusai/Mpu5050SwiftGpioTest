@@ -1,3 +1,10 @@
+/// PINS
+/*
+        3v    (1)(2) 5v
+SDA --- 2 SDA (3)(4) 5v  --- VCC
+SCL --- 3 SCL (5)(6) GND --- GND
+              (7)(8) 14 txd --- NA
+*/
 //Imports
 import SwiftyGPIO
 import MPU6050
