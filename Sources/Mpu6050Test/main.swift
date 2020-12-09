@@ -66,7 +66,7 @@ print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
 
 /// Readings ////
-let FerventTempo = Tempo()
+let ferventTempo = FerventTempo()
 //var time = NSDate()
 //var refreshRate: Double = 100
 /// Headers for printing
@@ -79,7 +79,7 @@ while(true){
 	//let newTime = NSDate()
 	//let deltaTime = newTime.timeIntervalSince(time as Date)
     //time = NSDate()
-    let refreshRate = 1 / FerventTempo.Delta
+    let refreshRate = 1 / ferventTempo.Delta
     //refreshRate = 1 / deltaTime
 	//print("Execution time: \(deltaTime)")
 	//print("Refresh Rate: \(refreshRate)")
