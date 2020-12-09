@@ -16,7 +16,8 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Mpu6050Test",
-            dependencies: ["SwiftyGPIO", "MPU6050"]),
+            dependencies: ["SwiftyGPIO", "MPU6050"]
+            ),
         .testTarget(
             name: "Mpu6050TestTests",
             dependencies: ["Mpu6050Test"]),
