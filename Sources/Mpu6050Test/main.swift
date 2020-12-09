@@ -9,7 +9,6 @@ SCL --- 3 SCL (5)(6) GND --- GND
 import SwiftyGPIO
 import MPU6050
 import Foundation
-//import tempo
 
 //Init the MPU6050 and HW
 let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
@@ -113,7 +112,7 @@ while(true){
 
 	//Calibrate Accel angles
 	pitchAngleAccel -= 0.0
-	rollAngleAccel += 3.95 + 0.3
+    rollAngleAccel += 0.0
 
 	if setGyroAngles {
 		pitchAngle = pitchAngle * 0.9996 + pitchAngleAccel * 0.0004
@@ -139,4 +138,5 @@ while(true){
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
     print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
+    
 }
