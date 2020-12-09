@@ -1,7 +1,15 @@
+/// PINS
+/*
+        3v    (1)(2) 5v
+SDA --- 2 SDA (3)(4) 5v  --- VCC
+SCL --- 3 SCL (5)(6) GND --- GND
+              (7)(8) 14 txd --- NA
+*/
 //Imports
 import SwiftyGPIO
 import MPU6050
 import Foundation
+import Tempo
 
 //Init the MPU6050 and HW
 let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
@@ -55,6 +63,7 @@ for n in 0...2000 {
 	gzCal += gz
 	//usleep(200)
 }
+
 gxCal = gxCal / 2000
 gyCal = gyCal / 2000
 gzCal = gzCal / 2000
@@ -63,7 +72,7 @@ print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
 
 /// Readings ////
-var time = NSDate()
+let FerventTempo = Tempo()
 var refreshRate: Double = 100
 /// Headers for printing
 print("Pitch\tRoll\tYaw\tTemp")
@@ -72,12 +81,12 @@ while(true){
 	gyroX = gx - gxCal
 	gyroY = gy - gyCal
 	gyroZ = gz - gzCal
-	let newTime = NSDate()
-	let deltaTime = newTime.timeIntervalSince(time as Date)
-	refreshRate = 1 / deltaTime
+	//let newTime = NSDate()
+	//let deltaTime = newTime.timeIntervalSince(time as Date)
+    refreshRate = 1 / FerventTempo.Delta
 	//print("Execution time: \(deltaTime)")
 	//print("Refresh Rate: \(refreshRate)")
-	time = NSDate()
+	//time = NSDate()
 	//print("Gyroscope - x:\(gyroZ),y:\(gyroY),z:\(gyroZ)")
 	//print("Gyroscope - x:\(gx),y:\(gy),z:\(gz)")
 	//gyro angle calc
