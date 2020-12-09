@@ -9,7 +9,7 @@ SCL --- 3 SCL (5)(6) GND --- GND
 import SwiftyGPIO
 import MPU6050
 import Foundation
-import Tempo
+//import tempo
 
 //Init the MPU6050 and HW
 let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
