@@ -142,6 +142,6 @@ while(true){
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
-    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
+    //print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
     
 }
