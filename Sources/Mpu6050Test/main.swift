@@ -47,7 +47,7 @@ var setGyroAngles: Bool = false
 print("Calibrating")
 mp.reset()
 mp.enable(true)
-for n in 0...2000 {
+for n in 0...1000 {
 	if n % 125 == 0 {
         print(".", terminator: " ")
 	}
@@ -58,9 +58,9 @@ for n in 0...2000 {
 	//usleep(200)
 }
 
-gxCal = gxCal / 2000
-gyCal = gyCal / 2000
-gzCal = gzCal / 2000
+gxCal = gxCal / 1000
+gyCal = gyCal / 1000
+gzCal = gzCal / 1000
 print("\n")
 print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
@@ -82,13 +82,13 @@ while(true){
     let refreshRate = 1 / ferventTempo.Delta
     //refreshRate = 1 / deltaTime
 	//print("Execution time: \(deltaTime)")
-	print("Refresh Rate: \(refreshRate)")
+	//print("Refresh Rate: \(refreshRate)")
 	//time = NSDate()
 	//print("Gyroscope - x:\(gyroZ),y:\(gyroY),z:\(gyroZ)")
 	//print("Gyroscope - x:\(gx),y:\(gy),z:\(gz)")
 	//gyro angle calc
 	//0.0000611 = 1 / (250Hz / 65.5)
-	let constant1: Double  = 1 / (refreshRate / 0.007685)
+	let constant1: Double  = 1 / (refreshRate / 0.066)
 	pitchAngle += Double(gyroX) * constant1
 	rollAngle += Double(gyroY) * constant1
 	yawAngle += Double(gyroZ) * constant1
@@ -109,12 +109,12 @@ while(true){
 	rollAngleAccel = asin(Double(Float(ax)/accelVectorMag)) * -57.29
 
 	//Calibrate Accel angles
-	pitchAngleAccel -= 0.0
-    rollAngleAccel += 0.0
+	pitchAngleAccel += 0.1
+    rollAngleAccel += 1.8
 
 	if setGyroAngles {
-		pitchAngle = pitchAngle * 0.9996 + pitchAngleAccel * 0.0004
-		rollAngle = rollAngle * 0.9996 + rollAngleAccel * 0.0004
+		pitchAngle = pitchAngle * 0.9 + pitchAngleAccel * 0.1
+		rollAngle = rollAngle * 0.9 + rollAngleAccel * 0.1
 	} else {
 		pitchAngle = pitchAngleAccel
 		rollAngle = rollAngleAccel
@@ -135,6 +135,6 @@ while(true){
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
-    //print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
+    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
     
 }
