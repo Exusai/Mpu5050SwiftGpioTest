@@ -42,19 +42,12 @@ var rollOut: Double = 0
 var yawOut: Double = 0
 
 var setGyroAngles: Bool = false
-//while(true){
-    //let (ax,ay,az,t,gx,gy,gz) = mp.getAll()
-    //print("Accelerometer - x:\(ax),y:\(ay),z:\(az)")
-    //print("Gyroscope - x:\(gx),y:\(gy),z:\(gz)")
-    //print("Temperature(°c): \(t)")
-    //sleep(1)
-//}
 
-/// CALIBRATING ///
+/// CALIBRATING
 print("Calibrating")
 mp.reset()
 mp.enable(true)
-for n in 0...1000 {
+for n in 0...2000 {
 	if n % 125 == 0 {
         print(".", terminator: " ")
 	}
@@ -65,9 +58,9 @@ for n in 0...1000 {
 	//usleep(200)
 }
 
-gxCal = gxCal / 1000
-gyCal = gyCal / 1000
-gzCal = gzCal / 1000
+gxCal = gxCal / 2000
+gyCal = gyCal / 2000
+gzCal = gzCal / 2000
 print("\n")
 print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
@@ -75,7 +68,7 @@ print("Calibrated")
 /// Readings ////
 let FerventTempo = Tempo()
 //var time = NSDate()
-var refreshRate: Double = 100
+//var refreshRate: Double = 100
 /// Headers for printing
 print("Pitch\tRoll\tYaw\tTemp")
 while(true){
@@ -86,7 +79,7 @@ while(true){
 	//let newTime = NSDate()
 	//let deltaTime = newTime.timeIntervalSince(time as Date)
     //time = NSDate()
-    refreshRate = 1 / FerventTempo.Delta
+    let refreshRate = 1 / FerventTempo.Delta
     //refreshRate = 1 / deltaTime
 	//print("Execution time: \(deltaTime)")
 	//print("Refresh Rate: \(refreshRate)")
