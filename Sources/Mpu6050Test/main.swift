@@ -84,7 +84,7 @@ while(true){
 	//let deltaTime = newTime.timeIntervalSince(time as Date)
     refreshRate = 1 / FerventTempo.Delta
 	//print("Execution time: \(deltaTime)")
-	//print("Refresh Rate: \(refreshRate)")
+	print("Refresh Rate: \(refreshRate)")
 	//time = NSDate()
 	//print("Gyroscope - x:\(gyroZ),y:\(gyroY),z:\(gyroZ)")
 	//print("Gyroscope - x:\(gx),y:\(gy),z:\(gz)")
@@ -137,6 +137,6 @@ while(true){
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
-    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
+    //print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
     
 }
