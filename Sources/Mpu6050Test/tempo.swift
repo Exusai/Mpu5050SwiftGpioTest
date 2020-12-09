@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 class Tempo {
     
     var PastPoint: NSDate = NSDate()
@@ -21,6 +22,24 @@ class Tempo {
     
     private func timeStep() {
         PastPoint = NSDate()
+    }
+    
+}
+*/
+
+class FerventTempo {
+    var PastPoint = clock()
+    var Delta: Double {
+        get {
+            let PresentPoint = clock()
+            let delta = Double(PresentPoint - PastPoint) / Double(CLOCKS_PER_SEC)
+            timeStep()
+            return delta
+        }
+    }
+    
+    private func timeStep() {
+        PastPoint = clock()
     }
     
 }
