@@ -52,7 +52,9 @@ var setGyroAngles: Bool = false
 
 /// CALIBRATING ///
 print("Calibrating")
-for n in 0...2000 {
+mp.reset()
+mp.enable(true)
+for n in 0...1000 {
 	if n % 125 == 0 {
         print(".", terminator: " ")
 	}
@@ -63,9 +65,9 @@ for n in 0...2000 {
 	//usleep(200)
 }
 
-gxCal = gxCal / 2000
-gyCal = gyCal / 2000
-gzCal = gzCal / 2000
+gxCal = gxCal / 1000
+gyCal = gyCal / 1000
+gzCal = gzCal / 1000
 print("\n")
 print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
@@ -84,7 +86,7 @@ while(true){
 	//let deltaTime = newTime.timeIntervalSince(time as Date)
     refreshRate = 1 / FerventTempo.Delta
 	//print("Execution time: \(deltaTime)")
-	print("Refresh Rate: \(refreshRate)")
+	//print("Refresh Rate: \(refreshRate)")
 	//time = NSDate()
 	//print("Gyroscope - x:\(gyroZ),y:\(gyroY),z:\(gyroZ)")
 	//print("Gyroscope - x:\(gx),y:\(gy),z:\(gz)")
@@ -137,6 +139,6 @@ while(true){
 	print("Roll:    \(rollString)")
 	print("Yaw:     \(yawString)")
     print("Temp:    \(tempString)")*/
-    //print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
+    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
     
 }
