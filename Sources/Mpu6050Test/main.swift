@@ -17,6 +17,7 @@ let i2c = i2cs[1]
 let mp = MPU6050(i2c)
 
 mp.enable(true)
+mp.range(gyroRange: 1, accelRange: 1)
 
 //Actual code
 var gyroX: Int = 0
@@ -47,7 +48,7 @@ var setGyroAngles: Bool = false
 print("Calibrating")
 mp.reset()
 mp.enable(true)
-for n in 0...1000 {
+for n in 0...500 {
 	if n % 125 == 0 {
         print(".", terminator: " ")
 	}
@@ -58,14 +59,14 @@ for n in 0...1000 {
 	//usleep(200)
 }
 
-gxCal = gxCal / 1000
-gyCal = gyCal / 1000
-gzCal = gzCal / 1000
+gxCal = gxCal / 500
+gyCal = gyCal / 500
+gzCal = gzCal / 500
 print("\n")
 print("gxAverage: \(gxCal) gyAverage: \(gyCal) gzAverage: \(gzCal) ")
 print("Calibrated")
 
-/// Readings ////
+/// Readings
 let ferventTempo = FerventTempo()
 //var time = NSDate()
 //var refreshRate: Double = 100

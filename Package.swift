@@ -8,7 +8,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
 	.package(url: "https://github.com/uraimo/SwiftyGPIO.git", from: "1.0.0"),
-	.package(url: "https://github.com/uraimo/MPU-6050.swift.git", from: "2.0.0"),
+	//.package(url: "https://github.com/uraimo/MPU-6050.swift.git", from: "2.0.0"),
 	//.package(url: "https://github.com/apple/swift-numerics", from: "0.0.7"),
     ],
     targets: [
@@ -16,7 +16,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Mpu6050Test",
-            dependencies: ["SwiftyGPIO", "MPU6050"]
+            dependencies: ["SwiftyGPIO"/*, "MPU6050"*/  ]
             ),
         .testTarget(
             name: "Mpu6050TestTests",
