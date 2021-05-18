@@ -145,9 +145,9 @@ while(true){
     let tempString = String(format: "%.1f", t)
     
     let deltaTimePos = positionTempo.Delta
-    Vx += Double(ax)/4096 * deltaTimePos // 4096 Constante de escalamiento
-    Vy += Double(ay)/4096 * deltaTimePos // depende del rango seleccionado
-    Vz += Double(az)/4096 * deltaTimePos // Leer datasheet
+    Vx += Double(ax - axCal)/4096 * 9.81 * deltaTimePos // 4096 Constante de escalamiento
+    Vy += Double(ay - ayCal)/4096 * 9.81 * deltaTimePos // depende del rango seleccionado
+    Vz += Double(az - azCal)/4096 * 9.81 * deltaTimePos // Leer datasheet
     
     x += Vx * deltaTimePos
     y += Vy * deltaTimePos
