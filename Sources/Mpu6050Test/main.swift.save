@@ -15,7 +15,7 @@ let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
 let i2c = i2cs[1]
 
 let mp = MPU6050(i2c)
-//mp.reset()
+mp.reset()
 mp.enable(true)
 mp.range(gyroRange: 1, accelRange: 2) // Define los rangos de operación del sensor
 
@@ -80,18 +80,18 @@ while(true){
     //let refreshRate = 1 / ferventTempo.Delta
     let vx = Double(gyroX) / 65.5
     let vy = Double(gyroY) / 65.5
-    let vz = Double(gyroZ) / 65.5 // Debe haber un error, debería ser 65.5 y 7.88 ni esta en la datasheet
+    let vz = Double(gyroZ) / 65.5
     let delta = ferventTempo.Delta
     
     // Gyro ang calc
     pitchAngle += vx * delta
     rollAngle += vy * delta
-    yawAngle += vz * delta 
+    yawAngle += vz * delta
 
 	// Transferencia de ang
 	let deg2rad: Double  = (Double.pi / 180)
-	pitchAngle += rollAngle * sin(Double(yawAngle) * deg2rad)
-	rollAngle -= pitchAngle * sin(Double(yawAngle) * deg2rad)
+	pitchAngle += rollAngle * sin(Double(yawAngle) *  deg2rad)
+	rollAngle -= pitchAngle * sin(Double(yawAngle) *  deg2rad)
 
 	// Accel ang calc
 	let ax2: Float = Float(ax) * Float(ax)
@@ -101,30 +101,30 @@ while(true){
 	pitchAngleAccel = asin(Double(Float(ay)/accelVectorMag)) * 57.29 // 57.29 = rad2deg
 	rollAngleAccel = asin(Double(Float(ax)/accelVectorMag)) * -57.29 // 57.29 = rad2deg
 
-	// Calibrate Accel angles
-	pitchAngleAccel += 1.0
-        rollAngleAccel += 1.6
-	
-	// Filtro complementario
+	//Calibrate Accel angles
+	pitchAngleAccel += 0.1
+    rollAngleAccel += 0
+
 	if setGyroAngles {
-		pitchAngle = pitchAngle * 0.9 + pitchAngleAccel * 0.1
-		rollAngle = rollAngle * 0.9 + rollAngleAccel * 0.1
+		pitchAngle = pitchAngle * 0.96 + pitchAngleAccel * 0.04
+		rollAngle = rollAngle * 0.96 + rollAngleAccel * 0.04
 	} else {
 		pitchAngle = pitchAngleAccel
 		rollAngle = rollAngleAccel
 		setGyroAngles = true
 	}
     
-	pitchOut = pitchAngle //pitchOut * 0.9 + pitchAngle * 0.1
-	rollOut = rollAngle //rollOut * 0.9 + rollAngle * 0.1
+    // Filtro complemenatario
+	pitchOut = pitchOut * 0.9 + pitchAngle * 0.1
+	rollOut = rollOut * 0.9 + rollAngle * 0.1
 	yawOut = yawAngle
     
-    let pitchString = String(format: "%.1f", pitchOut)
-    let rollString = String(format: "%.1f", rollOut)
-    let yawString = String(format: "%.1f", yawOut)
-    let tempString = String(format: "%.1f", t)
+    let pitchString = String(format: "%.2f", pitchOut)
+    let rollString = String(format: "%.2f", rollOut)
+    let yawString = String(format: "%.2f", yawOut)
+    let tempString = String(format: "%.2f", t)
     
     print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
-    //usleep(3000)
+    //usleep(5000)
     
 }

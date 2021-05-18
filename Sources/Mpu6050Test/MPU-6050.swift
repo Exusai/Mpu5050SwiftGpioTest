@@ -76,6 +76,12 @@ public class MPU6050{
     public func enable(_ on: Bool){
         // PWR_MGMT_1 register, SLEEP bit
         i2c.writeByte(address, command: 0x6B, value: UInt8(on ? 0 : 0x40))
+	/*let tmp1 = i2c.readByte(address, command: 0x1B)
+	let tmp2 = i2c.readByte(address, command: 0x1C)
+	print("gyro")
+	print(tmp1)
+	print("accel:")
+	print(tmp2)*/
     }
     
     /// Change sensor ranges accepts ranges from 0 to 3 acording to the datasheet
@@ -92,6 +98,12 @@ public class MPU6050{
         
         i2c.writeByte(address, command: 0x1B, value: gyroConfig)
         i2c.writeByte(address, command: 0x1C, value: accelConfig)
+	/*let tmp1 = i2c.readByte(address, command: 0x1B)
+	let tmp2 = i2c.readByte(address, command: 0x1C)
+	print("gyro")
+	print(tmp1)
+	print("accel:")
+	print(tmp2)*/
     }
 
     /// Resets the device
