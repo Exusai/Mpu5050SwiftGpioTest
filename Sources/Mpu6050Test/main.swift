@@ -28,6 +28,18 @@ var gxCal: Int = 0
 var gyCal: Int = 0
 var gzCal: Int = 0
 
+var axCal: Int = 0
+var ayCal: Int = 0
+var azCal: Int = 0
+
+var Vx: Double = 0
+var Vy: Double = 0
+var Vz: Double = 0
+
+var x: Double = 0
+var y: Double = 0
+var z: Double = 0
+
 var pitchAngle: Double = 0.0
 var rollAngle: Double = 0.0
 var yawAngle: Double = 0.0
@@ -46,31 +58,39 @@ var setGyroAngles: Bool = false
 
 /// CALIBRATING
 print("Calibrando")
-//mp.reset()
-//mp.enable(true)
 for n in 0...500 {
 	if n % 125 == 0 {
         print(".", terminator: " ")
 	}
-	let (_,_,_,_,gx,gy,gz) = mp.getAll()
+	let (ax,ay,az,_,gx,gy,gz) = mp.getAll()
 	gxCal += gx
 	gyCal += gy
 	gzCal += gz
+    
+    axCal += ax
+    ayCal += ay
+    azCal += az
 	//usleep(200)
 }
 
 gxCal = gxCal / 500
 gyCal = gyCal / 500
 gzCal = gzCal / 500
+
+axCal = gxCal / 500
+ayCal = gyCal / 500
+azCal = gzCal / 500
 print("\n")
 print("gxProm: \(gxCal) gyProm: \(gyCal) gzProm: \(gzCal) ")
+print("axProm: \(axCal) ayProm: \(ayCal) azProm: \(azCal) ")
 print("Calibrado")
 
 // Inicializar tiempo.
 let ferventTempo = FerventTempo()
+let positionTempo = FerventTempo()
 
 // Headers
-print("Pitch\tRoll\tYaw\tTemp")
+print("Pitch\tRoll\tYaw\tX\tY\tZ\tTemp")
 while(true){
 	let (ax, ay, az, t, gx, gy, gz) = mp.getAll()
 	gyroX = gx - gxCal
@@ -80,13 +100,13 @@ while(true){
     //let refreshRate = 1 / ferventTempo.Delta
     let vx = Double(gyroX) / 65.5
     let vy = Double(gyroY) / 65.5
-    let vz = Double(gyroZ) / 65.5 // Debe haber un error, debería ser 65.5 y 7.88 ni esta en la datasheet
+    let vz = Double(gyroZ) / 65.5 // 7.88 Debe haber un error, debería ser 65.5 y 7.88 ni esta en la datasheet
     let delta = ferventTempo.Delta
     
     // Gyro ang calc
     pitchAngle += vx * delta
     rollAngle += vy * delta
-    yawAngle += vz * delta 
+    yawAngle += vz * delta
 
 	// Transferencia de ang
 	let deg2rad: Double  = (Double.pi / 180)
@@ -103,7 +123,7 @@ while(true){
 
 	// Calibrate Accel angles
 	pitchAngleAccel += 1.0
-        rollAngleAccel += 1.6
+    rollAngleAccel += 1.6
 	
 	// Filtro complementario
 	if setGyroAngles {
@@ -115,8 +135,8 @@ while(true){
 		setGyroAngles = true
 	}
     
-	pitchOut = pitchAngle //pitchOut * 0.9 + pitchAngle * 0.1
-	rollOut = rollAngle //rollOut * 0.9 + rollAngle * 0.1
+	pitchOut = pitchAngle
+	rollOut = rollAngle
 	yawOut = yawAngle
     
     let pitchString = String(format: "%.1f", pitchOut)
@@ -124,7 +144,19 @@ while(true){
     let yawString = String(format: "%.1f", yawOut)
     let tempString = String(format: "%.1f", t)
     
-    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(tempString)", terminator:"\r")
-    //usleep(3000)
+    let deltaTimePos = positionTempo.Delta
+    Vx += Double(ax)/4096 * deltaTimePos // 4096 Constante de escalamiento
+    Vy += Double(ay)/4096 * deltaTimePos // depende del rango seleccionado
+    Vz += Double(az)/4096 * deltaTimePos // Leer datasheet
     
+    x += Vx * deltaTimePos
+    y += Vy * deltaTimePos
+    z += Vz * deltaTimePos
+    
+    let xText = String(format: "%.1f", x)
+    let yText = String(format: "%.1f", y)
+    let zText = String(format: "%.1f", z)
+    
+    print("\(pitchString)\t\(rollString)\t\(yawString)\t\(xText)m\t\(yText)m\t\(zText)m\t\(tempString)ºC", terminator:"\r")
+
 }
